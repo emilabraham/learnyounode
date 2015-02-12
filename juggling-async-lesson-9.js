@@ -1,12 +1,8 @@
 var http = require('http');
 var bl = require('bl');
-queue = {
-  first: 'first',
-  second: 'second',
-  third: 'third'
-}
 
-var array = [3];
+var array = ['first', 'second', 'third'];
+var finished = 0;
 
 // First GET
 http.get(process.argv[2], function (response) {
@@ -14,8 +10,9 @@ http.get(process.argv[2], function (response) {
     if (err) {
       return console.error(err);
     }
-    console.log(data.toString())
-    queue.first = data.toString();
+    array[0] = data.toString();
+    finished++;
+    print(finished);
   }));
 });
 
@@ -25,8 +22,9 @@ http.get(process.argv[3], function (response) {
     if (err) {
      return console.error(err);
     }
-    console.log(data.toString())
-    queue.second = data.toString();
+    array[1] = data.toString();
+    finished++;
+    print(finished);
   }));
 });
 
@@ -36,11 +34,16 @@ http.get(process.argv[4], function (response) {
     if (err) {
       return console.error(err);
     }
-    console.log(data.toString())
-    queue.third = data.toString();
+    array[2] = data.toString();
+    finished++;
+    print(finished);
   }));
 });
 
-console.log(queue.first);
-console.log(queue.second);
-console.log(queue.third);
+var print = function(finished) {
+  if (finished === 3) {
+    for (var i = 0; i < array.length; i++) {
+      console.log(array[i]);
+    }
+  }
+}
