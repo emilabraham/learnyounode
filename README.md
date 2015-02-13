@@ -1,6 +1,6 @@
 #Runthrough of learnyounode tutorial
 This tutorial was provided by
-[nodeschool.io](http://nodeschool.io/#workshoppers). This was much more thorough
+[nodeschool.io](http://nodeschool.io/#workshopper-list). This was much more thorough
 than [javascripting](https://github.com/emilabraham/javascripting). We covered a
 lot of core javascript/Node.js concepts, like:
 
