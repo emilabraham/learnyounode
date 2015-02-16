@@ -3,21 +3,31 @@ var url = require('url');
 
 var portnumber = process.argv[2];
 
+function parsetime (time) {
+  var parsedtime = {
+    hour: time.getHours(),
+    minute: time.getMinutes(),
+    second: time.getSeconds()
+  };
+  return parsedtime;
+}
+
+function unixtime (time) {
+  parsedtime = {
+    unixtime: time.getTime()
+  };
+  return parsedtime;
+}
+
 var server = http.createServer(function (request, response) {
   response.writeHead(200, { 'Content-Type': 'application/json' });
   var parsedurl = url.parse(request.url, true);
-  if (parsedurl.pathname === '/api/parsetime') {
   var date = new Date(parsedurl.query.iso);
-  var hour = date.getHours();
-  var minute = date.getMinutes();
-  var second = date.getSeconds();
-  var parsedtime = { 'hour': hour, 'minute': minute, 'second': second };
-  response.end(JSON.stringify(parsedtime));
+  if (parsedurl.pathname === '/api/parsetime') {
+    response.end(JSON.stringify(parsetime(date)));
   }
   else if (parsedurl.pathname == '/api/unixtime') {
-    var date = new Date(parsedurl.query.iso);
-    var parsedtime = { 'unixtime': date.getTime() };
-    response.end(JSON.stringify(parsedtime));
+    response.end(JSON.stringify(unixtime(date)));
   }
   else {
     response.end();
